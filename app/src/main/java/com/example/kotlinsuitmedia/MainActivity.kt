@@ -2,11 +2,11 @@ package com.example.kotlinsuitmedia
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
+
 import androidx.databinding.DataBindingUtil
 import com.example.kotlinsuitmedia.databinding.ActivityMainBinding
 
@@ -27,11 +27,16 @@ class MainActivity : AppCompatActivity() {
         }else {
             message = "not Palindrom"
         }
+        //Intent
+        val sendNameIntent = Intent(this, SelectEventAndGuestActivity::class.java).apply{
+            putExtra("username",name)
+        }
+        //Building Alert Dialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Check Palindrom")
         builder.setMessage(message)
         builder.setPositiveButton("Proceed"
-        ) { dialogInterface, i -> dialogInterface.dismiss() }
+        ) { dialogInterface, i -> startActivity(sendNameIntent) }
         builder.setNegativeButton("Cancel"
         ) { dialogInterface, i -> dialogInterface.dismiss() }
         builder.show()
