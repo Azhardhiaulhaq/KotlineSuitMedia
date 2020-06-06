@@ -8,21 +8,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.model.Guest
 
-class GuestAdapter constructor(val act : Activity) : RecyclerView.Adapter<GuestAdapter.ViewHolder>() {
+class GuestAdapter constructor(val act : Activity, val data : List<Guest>?) : RecyclerView.Adapter<GuestAdapter.ViewHolder>() {
     val mActivity : Activity
+    val mData : List<Guest>?
     init {
         mActivity = act
+        mData = data
     }
 
-    var data = listOf<GuestProperty>()
 
-    override fun getItemCount() = data.size
+    override fun getItemCount(): Int = mData!!.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int){
-        val item = data[position]
-        holder.tvGuestName.text = item.name
-        val birthDate : String = item.birthdate
+        val item = mData?.get(position)
+        holder.tvGuestName.text = item!!.name
+        val birthDate : String = item!!.birthdate
         val birth =
             birthDate.split("-".toRegex(), 3).toTypedArray()
         val month : String = birth[1]
@@ -35,9 +36,9 @@ class GuestAdapter constructor(val act : Activity) : RecyclerView.Adapter<GuestA
             object : View.OnClickListener{
                 override fun onClick(v : View?){
                     val sendGuestIntent = Intent(holder.tvGuestName.context, SelectEventAndGuestActivity::class.java).apply{
-                        putExtra("guestID",item.id)
-                        putExtra("guestName",item.name)
-                        putExtra("guestBirthDate",item.birthdate)
+                        putExtra("guestID",item!!.id)
+                        putExtra("guestName",item!!.name)
+                        putExtra("guestBirthDate",item!!.birthdate)
                     }
                     mActivity.setResult(Activity.RESULT_OK,sendGuestIntent)
                     mActivity.finish()
@@ -67,10 +68,6 @@ class GuestAdapter constructor(val act : Activity) : RecyclerView.Adapter<GuestA
         val tvMonth : TextView = itemView.findViewById(R.id.monthTV)
         val guestDetailCL : ConstraintLayout = itemView.findViewById(R.id.guestDetailCL)
 
-        fun bind(item:GuestProperty){
-            val res = itemView.context.resources
-            val activity = itemView.context
-        }
 
 
         companion object {

@@ -9,17 +9,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinsuitmedia.network.EventsProperty
-import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.model.Event
 import com.squareup.picasso.Picasso
 
-class EventsAdapter constructor(val act : Activity) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
+class EventsAdapter constructor(val act : Activity, val mdata : List<Event>) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {
     val mActivity : Activity
+    val data : List<Event>
     init {
         mActivity = act
+        data = mdata
     }
-
-    var data = listOf<EventsProperty>()
 
     override fun getItemCount() = data.size
     override fun onBindViewHolder(holder: ViewHolder, position: Int){

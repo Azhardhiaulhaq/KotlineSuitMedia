@@ -1,6 +1,6 @@
-package com.example.kotlinsuitmedia.network
+package com.example.kotlinsuitmedia.model
 
-data class EventsProperty (
+data class Event (
     val name : String,
     val date : String,
     val url : String,

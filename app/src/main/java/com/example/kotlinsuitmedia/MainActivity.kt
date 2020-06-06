@@ -6,54 +6,48 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 
 import androidx.databinding.DataBindingUtil
 import com.example.kotlinsuitmedia.databinding.ActivityMainBinding
+import com.example.kotlinsuitmedia.presenter.LoginPresenter
+import com.example.kotlinsuitmedia.presenter.iLoginPresenter
+import com.example.kotlinsuitmedia.view.iLoginView
+import es.dmoral.toasty.Toasty
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), iLoginView {
     private lateinit var binding: ActivityMainBinding
+    lateinit var loginPresenter : iLoginPresenter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        loginPresenter = LoginPresenter(this)
     }
 
-    public fun sendName(v: View){
-        lateinit var message : String
-        val name : String = binding.InsertNameET.text.toString()
-        if (checkPalindrom(name)){
-            message = "is Palindrom"
-        }else {
-            message = "not Palindrom"
+    public fun checkName(v: View){
+        loginPresenter.onLogin(binding.InsertNameET.text.toString())
+    }
+
+    override fun onLoginResult(name:String,message: String) {
+        if(message == "Login success"){
+            loginPresenter.checkPalindrom(name)
+        } else {
+            Toasty.error(this,message, Toast.LENGTH_SHORT).show()
         }
-        //Intent
+    }
+
+    override fun sendName(name: String, messagePalindrom: String) {
         val sendNameIntent = Intent(this, SelectEventAndGuestActivity::class.java).apply{
             putExtra("username",name)
         }
-        //Building Alert Dialog
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Check Palindrom")
-        builder.setMessage(message)
+        builder.setMessage(messagePalindrom)
         builder.setPositiveButton("Proceed"
         ) { dialogInterface, i -> startActivity(sendNameIntent) }
         builder.setNegativeButton("Cancel"
         ) { dialogInterface, i -> dialogInterface.dismiss() }
         builder.show()
-    }
-
-    private fun checkPalindrom (Sentence : String) : Boolean {
-        val low_sentence : String = Sentence.toLowerCase()
-        var isPalindrom : Boolean = true
-        var i : Int = low_sentence.length-1
-        var j : Int = 0
-        while (i > j) {
-            if(low_sentence.get(i) != low_sentence.get(j)){
-                isPalindrom = false
-            }
-            i--
-            j++
-        }
-        return isPalindrom
     }
 }
