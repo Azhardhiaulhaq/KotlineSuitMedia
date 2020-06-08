@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinsuitmedia.network.GuestApi
 import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.repository.GuestRepository
+import com.example.kotlinsuitmedia.repository.NetworkState
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -13,37 +16,52 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class GuestViewModel : ViewModel(){
-    val _response = MutableLiveData<String>()
-    val guestData = MutableLiveData<List<GuestProperty>>()
+class GuestViewModel (private val guestRepository: GuestRepository): ViewModel(){
+//    val _response = MutableLiveData<String>()
+//    val guestData = MutableLiveData<List<GuestProperty>>()
+//
+//    val response : LiveData<String>
+//    get() = _response
+//
+//    private var viewModelJob = Job()
+//
+//    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+//
+//    init {
+//        getGuestProperties()
+//    }
+//
+//    private fun getGuestProperties(){
+//        coroutineScope.launch{
+//            var getGuestDeferred = GuestApi.retrofitService.getGuest()
+//            try {
+//                var listResult = getGuestDeferred.await()
+//                _response.value = "Success: ${listResult[0]} Guest properties retrieved"
+//                guestData.setValue(listResult)
+//            } catch (e: Exception){
+//                _response.value = "Failure: ${e.message}"
+//            }
+//        }
+//    }
+//
+//    override fun onCleared(){
+//        super.onCleared()
+//        viewModelJob.cancel()
+//    }
 
-    val response : LiveData<String>
-    get() = _response
+    private val compositeDisposable = CompositeDisposable()
 
-    private var viewModelJob = Job()
-
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
-    init {
-        getGuestProperties()
+    val guestDetails : LiveData<GuestProperty> by lazy {
+        guestRepository.fetchGuestDetails(compositeDisposable)
     }
 
-    private fun getGuestProperties(){
-        coroutineScope.launch{
-            var getGuestDeferred = GuestApi.retrofitService.getGuest()
-            try {
-                var listResult = getGuestDeferred.await()
-                _response.value = "Success: ${listResult[0]} Guest properties retrieved"
-                guestData.setValue(listResult)
-            } catch (e: Exception){
-                _response.value = "Failure: ${e.message}"
-            }
-        }
+    val networkState : LiveData<NetworkState> by lazy {
+        guestRepository.getGuestDetailsNetworkState()
     }
 
-    override fun onCleared(){
+    override fun onCleared() {
         super.onCleared()
-        viewModelJob.cancel()
+        compositeDisposable.dispose()
     }
 
 }
