@@ -11,11 +11,11 @@ import com.example.kotlinsuitmedia.view.IEventView
 
 class EventsActivity : AppCompatActivity(), IEventView {
     private lateinit var binding: ActivityEventsBinding
-    private lateinit var presenter : EventPresenter
+    val presenter = EventPresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_events)
-        presenter = EventPresenter(this)
+        presenter.addData()
         presenter.getData()
     }
 

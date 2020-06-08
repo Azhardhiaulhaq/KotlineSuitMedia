@@ -1,4 +1,4 @@
-package com.example.kotlinsuitmedia.network
+package com.example.kotlinsuitmedia.repo.network
 
 import com.example.kotlinsuitmedia.model.Guest
 import retrofit2.Call
