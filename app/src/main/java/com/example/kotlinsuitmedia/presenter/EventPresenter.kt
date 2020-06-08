@@ -1,18 +1,17 @@
 package com.example.kotlinsuitmedia.presenter
 
-import android.app.Application
 import android.content.Context
 import android.os.AsyncTask
-import android.util.Log
 import com.example.kotlinsuitmedia.model.Event
 import com.example.kotlinsuitmedia.room.EventDatabase
-import com.example.kotlinsuitmedia.room.EventRepository
+import com.example.kotlinsuitmedia.repo.EventRepository
 import com.example.kotlinsuitmedia.view.IEventView
 
 class EventPresenter(context : Context) {
     val event_view = context as IEventView
     val app = context
-    val eventRepository  = EventRepository(context)
+    val eventRepository  =
+        EventRepository(context)
 
     fun addData(){
         eventRepository.insertEvent(Event("Hangout Around Town","March 23, 2020",

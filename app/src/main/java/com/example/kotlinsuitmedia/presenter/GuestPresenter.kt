@@ -2,7 +2,7 @@ package com.example.kotlinsuitmedia.presenter
 
 import android.content.Context
 import com.example.kotlinsuitmedia.model.Guest
-import com.example.kotlinsuitmedia.repo.network.APIService
+import com.example.kotlinsuitmedia.repo.APIService
 import com.example.kotlinsuitmedia.view.IGuestView
 import retrofit2.Call
 import retrofit2.Callback

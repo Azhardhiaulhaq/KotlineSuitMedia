@@ -1,11 +1,9 @@
-package com.example.kotlinsuitmedia.room
+package com.example.kotlinsuitmedia.repo
 
-import android.app.Application
 import android.content.Context
-import android.os.AsyncTask
 import android.util.Log
-import androidx.room.Room
 import com.example.kotlinsuitmedia.model.Event
+import com.example.kotlinsuitmedia.room.EventDatabase
 
 class EventRepository (val context:Context){
 //    private val eventDatabase : EventDatabase by lazy {EventDatabase.getInstance()}
