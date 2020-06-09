@@ -24,7 +24,7 @@ class GuestNetworkDataSource (private val apiService : GuestApiService, private 
         _networkState.postValue(NetworkState.LOADING)
         try{
             compositeDisposable.add(
-                GuestApi.getGuestData()
+                GuestApi.getGuestApiService()
                     .getGuest()
                     .subscribeOn(Schedulers.io())
                     .subscribe(

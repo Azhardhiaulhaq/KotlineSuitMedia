@@ -38,7 +38,7 @@ object GuestApi {
         retrofit.create(GuestApiService::class.java)
     }
 
-    fun getGuestData() : GuestApiService {
+    fun getGuestApiService() : GuestApiService {
         Log.d("Inside","GuestAPIService")
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
