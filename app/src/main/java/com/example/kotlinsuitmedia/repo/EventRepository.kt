@@ -12,7 +12,6 @@ class EventRepository (val context:Context){
         con = context
     }
     fun insertEvent (event : Event){
-        Log.d("Inside ", "Event Repository")
     EventDatabase.get(con).getEventDao().insertEvent(event)
     }
 

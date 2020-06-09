@@ -12,7 +12,6 @@ abstract class EventDatabase : RoomDatabase() {
     companion object {
 
         fun get(context : Context) : EventDatabase {
-            Log.d("Inside get application",".")
             return Room.databaseBuilder(context,EventDatabase::class.java,"EventsDatabase")
                 .allowMainThreadQueries()
                 .fallbackToDestructiveMigration()
