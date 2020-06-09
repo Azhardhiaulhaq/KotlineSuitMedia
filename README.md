@@ -43,3 +43,68 @@ Represents a table within the database
 3. DAO 
 Contains the methods used for accessing the database
 
+## Reactive Programming
+Reactive Programming does not need to re-execute some code when we change the data. The result will be updated automatically. It is possible because we always observing the data.
+
+*RxJava :*
+Reactive Extensions for the JVM. a library for composing asynchronous and event-based programs using observable sequence for the Java VM. 
+
+*RxKotlin :*
+Simply is a RxJava Wrapper for Kotlin Programming Language. When it comes to code Android Apps in Reactive Programming, we need to use RxJava for java Project. On the other hand, we could use both RxJava and RxKotlin in Kotlin Project.
+
+*RxAndroid :*
+Offers schedulers to manage the thread. Mostly, schedulers.io() and AndroidSchedulers. mainThread() is used in android programming.
+
+*Terms : *
+1. Observable
+Observable is a data stream that been observed by observer and would emit data to observer. Observable can emit multiple items. So the lifecycle of observable after being subscribed is doing onNext until it reach onComplete or onError. There are many type of observable based on the data that being emitted, those are :
+
+    - Single : Single is an observable which only emits one item or throws an error. The lifecycle of Single is pretty straightforward. After being subscribed, It goes to either onSuccess or onError.
+
+    - Maybe : Just like single, but it allows for no emission at all. In order to achieve zero emission, onComplete was added to the Maybe's lifecycle.
+
+    - Completable : Only concerned with execution of completion. Whether the task has reach to completion or some error has occured. 
+
+2. Observer
+Observer will receive the data emitted by observables
+
+3. Subscribe
+The things that link between observable and observer. There can be multiple observer subscribed to a single observable
+
+4. Operators
+Operators modify data which is emitted by observable. The Observer will get the data that has changed.
+
+5. Schedulers
+Schedulers determine which thread should observable emit the data and on which observer should receive the data
+
+## Live Data
+Live Data is an observable data holder class. Live Data is different among the other observable because it is aware of the activity lifecycle (Lifecycle Aware). It means that the component will only be updated on Active Lifecycle state.
+
+Live Data considers an observer, represented by observer class. Live Data will notifies the active observer about the updates of data. Active Observer is an observer which its lifecycle is in STARTED or RESUMED. Inactive observer arent notified about the updates.
+
+*The Advantage : *
+1. Up to date Data 
+Live Data will notifies if there are any updates on data. Which mean that the UI will always have the up to date data
+
+2. No Memory Leak
+Observere are bound to lifecycle objects and clean up themselves when their associated lifecycle is destroyed.
+
+3. No crashes due to stopped activities
+if the observers are inactive, it wont received any Live Data event.
+
+4. Sharing Resources
+any activity/observers that need the resource can just watch the LiveData Object
+
+*Observe Live Data Objects*
+
+To ensure the system doesn't make redundat calls from an activity onResume() methods, we need to call Live Data Object in onCreate() methods. We can observe the Live Data object using observe() methods. when it is called, the onChanged() method is immediately invoked providing the most recent value to show in the UI. if the Live Data object hasn't set a value in UI, onChanged() is not called.
+
+*Transform Live Data : *
+
+It works like operators in RxKotlin. We can transform our Live Data to match our needs in UI. The lifecycle package provides the transformations class which includes helper methods that support these scenarios.
+
+    1. Transformations.map ()
+    Applies a function on the value stored in the LiveData object and propagates the result downstream.
+
+    2. Transformations.switchMap()
+    Similar to map(). The difference is that the function passed to switchMap() must return a LiveData object.
