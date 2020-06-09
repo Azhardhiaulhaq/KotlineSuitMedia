@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.model.GuestProperty
 
 class GuestAdapter constructor(val act : Activity) : RecyclerView.Adapter<GuestAdapter.ViewHolder>() {
     val mActivity : Activity
@@ -67,7 +67,7 @@ class GuestAdapter constructor(val act : Activity) : RecyclerView.Adapter<GuestA
         val tvMonth : TextView = itemView.findViewById(R.id.monthTV)
         val guestDetailCL : ConstraintLayout = itemView.findViewById(R.id.guestDetailCL)
 
-        fun bind(item:GuestProperty){
+        fun bind(item: GuestProperty){
             val res = itemView.context.resources
             val activity = itemView.context
         }

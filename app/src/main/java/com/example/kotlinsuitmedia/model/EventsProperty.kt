@@ -1,4 +1,4 @@
-package com.example.kotlinsuitmedia.network
+package com.example.kotlinsuitmedia.model
 
 data class EventsProperty (
     val name : String,

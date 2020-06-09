@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.kotlinsuitmedia.network.GuestApi
 import com.example.kotlinsuitmedia.network.GuestApiService
-import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.model.GuestProperty
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
@@ -15,11 +15,12 @@ class GuestNetworkDataSource (private val apiService : GuestApiService, private 
     val networkState : LiveData<NetworkState>
         get() = _networkState
 
-    private val _downloadedGuest = MutableLiveData<GuestProperty>()
-    val downloadedGuest : LiveData<GuestProperty>
+    private val _downloadedGuest = MutableLiveData<List<GuestProperty>>()
+    val downloadedGuest : LiveData<List<GuestProperty>>
         get() = _downloadedGuest
 
     fun fetchGuest(){
+        Log.d("Inside","GuestNetworkDataSource Fetch Guest")
         _networkState.postValue(NetworkState.LOADING)
         try{
             compositeDisposable.add(

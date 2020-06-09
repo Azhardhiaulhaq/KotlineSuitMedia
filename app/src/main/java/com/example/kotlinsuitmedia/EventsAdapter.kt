@@ -9,8 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import com.example.kotlinsuitmedia.network.EventsProperty
-import com.example.kotlinsuitmedia.network.GuestProperty
+import com.example.kotlinsuitmedia.model.EventsProperty
 import com.squareup.picasso.Picasso
 
 class EventsAdapter constructor(val act : Activity) : RecyclerView.Adapter<EventsAdapter.ViewHolder>() {

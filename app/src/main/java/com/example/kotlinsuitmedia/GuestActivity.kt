@@ -3,6 +3,7 @@ package com.example.kotlinsuitmedia
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -11,13 +12,9 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kotlinsuitmedia.ViewModel.GuestViewModel
 import com.example.kotlinsuitmedia.databinding.ActivityGuestBinding
-import com.example.kotlinsuitmedia.databinding.ActivitySelectEventAndGuestBinding
 import com.example.kotlinsuitmedia.network.GuestApi
 import com.example.kotlinsuitmedia.network.GuestApiService
-import com.example.kotlinsuitmedia.network.GuestProperty
 import com.example.kotlinsuitmedia.repository.GuestRepository
-import java.io.Console
-import java.lang.Math.log
 
 class GuestActivity : AppCompatActivity() {
     private lateinit var viewModel : GuestViewModel
@@ -27,27 +24,22 @@ class GuestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_guest)
-//        viewModel = ViewModelProviders.of(this).get(GuestViewModel::class.java)
-//
-//
-//        val dataObserver = Observer<List<GuestProperty>> {new_list ->
-//            var listData : List<GuestProperty> = new_list
-//            Log.d("Data","Succes : ${listData} ")
-//            val adapter = GuestAdapter(this)
-//            binding.guestRV.adapter = adapter
-//            binding.guestRV.layoutManager = GridLayoutManager(this,2)
-//            adapter.data = listData
-//        }
-//
-//        viewModel.guestData.observe(this,dataObserver)
         val apiService : GuestApiService = GuestApi.getGuestData()
+        Log.d("Get","API Service")
         guestRepository = GuestRepository(apiService)
         viewModel = getViewModel()
         viewModel.guestDetails.observe(this,Observer{
             val adapter = GuestAdapter(this)
             binding.guestRV.adapter = adapter
             binding.guestRV.layoutManager = GridLayoutManager(this,2)
-            adapter.data = listOf(it)
+            adapter.data = it
+        })
+        viewModel.networkState.observe(this,Observer{
+            if(it.msg == "Running" ){
+                binding.spinKit.visibility = View.VISIBLE
+            } else if (it.msg == "Success"){
+                binding.spinKit.visibility = View.GONE
+            }
         })
     }
 

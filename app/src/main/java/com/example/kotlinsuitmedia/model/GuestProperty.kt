@@ -1,4 +1,4 @@
-package com.example.kotlinsuitmedia.network
+package com.example.kotlinsuitmedia.model
 
 import com.squareup.moshi.Json
 

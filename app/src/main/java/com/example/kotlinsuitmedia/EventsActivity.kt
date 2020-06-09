@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.kotlinsuitmedia.ViewModel.EventsViewModel
 import com.example.kotlinsuitmedia.databinding.ActivityEventsBinding
-import com.example.kotlinsuitmedia.network.EventsProperty
+import com.example.kotlinsuitmedia.model.EventsProperty
 
 class EventsActivity : AppCompatActivity() {
     private lateinit var viewModel : EventsViewModel
