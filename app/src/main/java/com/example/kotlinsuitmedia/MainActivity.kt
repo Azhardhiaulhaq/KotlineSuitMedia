@@ -8,15 +8,21 @@ import android.os.Bundle
 import android.view.View
 
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.example.kotlinsuitmedia.ViewModel.GuestViewModel
+import com.example.kotlinsuitmedia.ViewModel.UserViewModel
 import com.example.kotlinsuitmedia.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewModel : UserViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
     }
 
     public fun sendName(v: View){
@@ -27,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         }else {
             message = "not Palindrom"
         }
+
         //Intent
         val sendNameIntent = Intent(this, SelectEventAndGuestActivity::class.java).apply{
             putExtra("username",name)
@@ -56,4 +63,5 @@ class MainActivity : AppCompatActivity() {
         }
         return isPalindrom
     }
+
 }

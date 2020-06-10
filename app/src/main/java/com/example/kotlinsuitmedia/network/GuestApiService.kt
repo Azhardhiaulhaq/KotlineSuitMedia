@@ -15,15 +15,6 @@ import retrofit2.http.GET
 
 private const val BASE_URL = "http://www.mocky.io/v2/"
 
-private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
-    .build()
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))
-    .addCallAdapterFactory(CoroutineCallAdapterFactory())
-    .baseUrl(BASE_URL)
-    .build()
 
 
 
@@ -34,9 +25,6 @@ interface GuestApiService {
 }
 
 object GuestApi {
-    val retrofitService : GuestApiService by lazy {
-        retrofit.create(GuestApiService::class.java)
-    }
 
     fun getGuestApiService() : GuestApiService {
         Log.d("Inside","GuestAPIService")

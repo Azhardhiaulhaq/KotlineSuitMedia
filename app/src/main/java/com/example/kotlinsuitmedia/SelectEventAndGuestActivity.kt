@@ -6,10 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import com.example.kotlinsuitmedia.ViewModel.UserViewModel
 import com.example.kotlinsuitmedia.databinding.ActivitySelectEventAndGuestBinding
+import es.dmoral.toasty.Toasty
 
 class SelectEventAndGuestActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySelectEventAndGuestBinding
+    private lateinit var viewModel : UserViewModel
     private var GET_GUEST : Int = 1
     private var GET_EVENT : Int = 2
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,6 +26,7 @@ class SelectEventAndGuestActivity : AppCompatActivity() {
         if (nameIntent.hasExtra("username")){
             binding.inputNameTV.setText(nameIntent.getExtras()?.getString("username"))
         }
+
     }
 
     fun GuestPicker(v: View){
@@ -52,9 +59,7 @@ class SelectEventAndGuestActivity : AppCompatActivity() {
                 } else {
                     "feature phone"
                 }
-                val toast =
-                    Toast.makeText(applicationContext, toastString, Toast.LENGTH_SHORT)
-                toast.show()
+                Toasty.info(applicationContext,toastString,Toast.LENGTH_SHORT).show()
 
             }
         } else if (requestCode == GET_EVENT) {
@@ -64,4 +69,5 @@ class SelectEventAndGuestActivity : AppCompatActivity() {
             }
         }
     }
+
 }

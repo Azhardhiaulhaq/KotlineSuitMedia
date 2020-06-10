@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.example.kotlinsuitmedia.model.GuestProperty
 import com.example.kotlinsuitmedia.repository.GuestRepository
-import com.example.kotlinsuitmedia.repository.NetworkState
+import com.example.kotlinsuitmedia.model.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 
 class GuestViewModel (private val guestRepository: GuestRepository): ViewModel(){

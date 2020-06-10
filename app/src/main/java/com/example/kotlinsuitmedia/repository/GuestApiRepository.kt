@@ -6,10 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import com.example.kotlinsuitmedia.network.GuestApi
 import com.example.kotlinsuitmedia.network.GuestApiService
 import com.example.kotlinsuitmedia.model.GuestProperty
+import com.example.kotlinsuitmedia.model.NetworkState
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class GuestNetworkDataSource (private val apiService : GuestApiService, private val compositeDisposable : CompositeDisposable) {
+class GuestApiRepository (private val apiService : GuestApiService, private val compositeDisposable : CompositeDisposable) {
 
     private val _networkState = MutableLiveData<NetworkState>()
     val networkState : LiveData<NetworkState>
@@ -43,4 +44,5 @@ class GuestNetworkDataSource (private val apiService : GuestApiService, private 
             Log.d("GuestNetworkDataSource",e.message)
         }
     }
+
 }
