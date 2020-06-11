@@ -27,7 +27,6 @@ interface GuestApiService {
 object GuestApi {
 
     fun getGuestApiService() : GuestApiService {
-        Log.d("Inside","GuestAPIService")
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addCallAdapterFactory( RxJava2CallAdapterFactory.create())

@@ -24,9 +24,10 @@ class GuestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_guest)
-        guestRepository = GuestRepository(GuestApi.getGuestApiService())
+        guestRepository = GuestRepository(GuestApi.getGuestApiService(),this)
         viewModel = getViewModel()
-        viewModel.guestDetails.observe(this,Observer{
+        viewModel.downloadedGuest.observe(this,Observer{
+            Log.d("Check DownloadedGuest", it.toString())
             val adapter = GuestAdapter(this)
             binding.guestRV.adapter = adapter
             binding.guestRV.layoutManager = GridLayoutManager(this,2)
