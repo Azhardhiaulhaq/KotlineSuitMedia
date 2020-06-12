@@ -30,7 +30,7 @@ class GuestRepository (private val apiservice: GuestApiService, private val appl
     fun fetchGuestDetails(compositeDisposable: CompositeDisposable) : Observable<List<GuestProperty>> {
         guestDBRepository = GuestDBRepository(con)
         guestApiRepository = GuestApiRepository(apiservice,compositeDisposable)
-        
+
         if(guestDBRepository.fetchGuestData().isEmpty()){
             return guestApiRepository.fetchGuest()
                 .subscribeOn(Schedulers.io())
